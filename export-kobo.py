@@ -397,7 +397,10 @@ class ExportKobo(CommandLineTool):
                 acc = u"\n".join([i.kindle_my_clippings() for i in items])
             elif self.vargs["csv"]:
                 # CSV format
-                acc = self.list_to_csv([i.csv_tuple() for i in items])
+                acc = []
+                acc.append((u'KIND', u'TITLE', u'AUTHOR', u'DATECREATED', u'DATEMODIFIED', u'ANNOTATION', u'TEXT',))
+                acc.extend([i.csv_tuple() for i in items])
+                acc = self.list_to_csv(acc)
             elif self.vargs["raw"]:
                 acc = u"\n".join([(u"%s\n" % i.text) for i in items])
             else:
